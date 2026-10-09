@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple iPhone</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.92) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0;
+            min-height: 48px;
+            z-index: 1050;
+        }
+
+        .navbar .container { position: relative; }
+
+        .icon-white { color: #f5f5f7; font-size: 17px; cursor: pointer; }
+
+        .navbar-nav { width: 100%; justify-content: space-between; }
+
+        .navbar-nav > .nav-item > .nav-link {
+            font-size: 12px !important;
+            color: #f5f5f7 !important;
+            opacity: 0.8;
+            padding: 15px 12px;
+            white-space: nowrap;
+        }
+
+        .navbar-nav > .nav-item > .nav-link:hover,
+        .navbar-nav > .nav-item.open > .nav-link { opacity: 1; }
+
+        /* hide Bootstrap's dropdown caret */
+        .nav-link.dropdown-toggle::after { display: none; }
+
+        /* ---------- Mega menu ---------- */
+        .mega-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            padding: 30px 0 40px;
+            background: #161617;
+            border: none;
+            border-radius: 0;
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+        }
+
+        .mega-menu.show { display: block; }
+
+        .mega-menu h6 {
+            font-size: 12px;
+            font-weight: 400;
+            color: #86868b;
+            margin: 0 0 14px;
+        }
+
+        .mega-menu .col-block { margin-bottom: 20px; }
+
+        .mega-menu a {
+            display: block;
+            color: #f5f5f7;
+            line-height: 1.3;
+        }
+
+        .mega-menu a:hover { color: #fff; text-decoration: underline; }
+
+        /* big links (first column) */
+        .mega-menu .big a {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* small links (other columns) */
+        .mega-menu .small-links a {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* ---------- Mobile navbar ---------- */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                max-height: calc(100vh - 56px);
+                overflow-y: auto;
+                padding-bottom: 15px;
+            }
+
+            .navbar-nav { align-items: stretch; }
+
+            .navbar-nav > .nav-item > .nav-link {
+                padding: 12px 4px;
+                font-size: 15px !important;
+                border-bottom: 1px solid #333;
+            }
+
+            .mega-menu {
+                position: static;
+                max-height: none;
+                padding: 18px 4px 6px;
+                background: #111;
+            }
+
+            .mega-menu .big a { font-size: 19px; }
+
+            .navbar-icons { margin-left: auto; margin-right: 14px; }
+        }
+
+        /* ================= PRODUCT TILES ================= */
+
+        .tile {
+            padding: 14px 12px 0;
+            text-align: center;
+        }
+
+        .tile.bg-black-t { background: #000; color: #fff; }
+        .tile.bg-light-t { background: #f5f5f7; color: #111; }
+        .tile.bg-blue-t { background: #e8f4fa; color: #111; }
+
+        .tile:last-of-type { padding-bottom: 14px; }
+
+        .img-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2b2b2e, #6e6e73);
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: clamp(480px, 62vw, 700px);
+            object-fit: cover;
+            object-position: center bottom;
+            display: block;
+        }
+
+        .image-content {
+            position: absolute;
+            top: 9%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .image-content.light { color: #fff; }
+        .image-content.dark { color: #111; }
+
+        .image-content h1 {
+            font-size: clamp(30px, 5vw, 56px);
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .image-content h3 {
+            font-size: clamp(19px, 2.8vw, 28px);
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .image-content h4 {
+            font-size: clamp(16px, 2.2vw, 22px);
+            font-weight: 400;
+            margin-bottom: 14px;
+        }
+
+        .image-content h5 {
+            font-size: clamp(15px, 2vw, 20px);
+            font-weight: 400;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .image-content p {
+            font-size: clamp(13px, 1.6vw, 16px);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .image-buttons {
+            margin-top: 14px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .image-buttons .btn {
+            font-size: 15px;
+            padding: 7px 22px;
+            min-width: 112px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 576px) {
+            .tile { padding: 10px 8px 0; }
+            .tile:last-of-type { padding-bottom: 10px; }
+            .img-wrapper { border-radius: 14px; }
+            .image-content { top: 7%; }
+            .image-buttons .btn { font-size: 13px; padding: 6px 16px; min-width: 96px; }
+        }
+
+        /* ================= TV CARDS ================= */
+
+        .section-title {
+            color: #fff;
+            text-align: center;
+            font-weight: 700;
+            font-size: clamp(26px, 4vw, 40px);
+            padding-top: 30px;
+        }
+
+        .apple-slider, .hero-slider {
+            display: flex;
+            gap: 18px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            padding: 20px;
+            scroll-snap-type: x mandatory;
+            cursor: grab;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .apple-slider:active, .hero-slider:active { cursor: grabbing; }
+        .apple-slider::-webkit-scrollbar, .hero-slider::-webkit-scrollbar { display: none; }
+
+        .tv-card, .hero-card {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            background: linear-gradient(135deg, #2b2b2e, #555);
+        }
+
+        .tv-card { width: 320px; height: 500px; }
+        .hero-card { width: 310px; height: 390px; }
+
+        .tv-card img, .hero-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            -webkit-user-drag: none;
+            user-select: none;
+        }
+
+        .tv-card .overlay, .hero-card .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 22px;
+            color: #fff;
+            background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.2) 48%, rgba(0,0,0,0.95) 100%);
+        }
+
+        .tv-card .logo, .hero-card .logo {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .tv-card h2 { font-size: 24px; font-weight: 700; margin: 4px 0 8px; line-height: 1.1; }
+        .hero-card h2 { font-size: 23px; font-weight: 700; margin: 3px 0 5px; }
+
+        .tv-card p, .hero-card p { font-size: 14px; line-height: 1.4; margin: 0; }
+
+        .tv-card button, .hero-card button {
+            width: fit-content;
+            margin-top: 14px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .hero-section { background: #000; padding: 0 0 30px; }
+
+        @media (max-width: 768px) {
+            .apple-slider, .hero-slider { padding: 15px 10px; gap: 12px; }
+            .tv-card { width: 270px; height: 420px; }
+            .hero-card { width: 255px; height: 330px; }
+            .tv-card h2 { font-size: 21px; }
+            .hero-card h2 { font-size: 20px; }
+            .tv-card p, .hero-card p { font-size: 13px; }
+        }
+
+        @media (max-width: 480px) {
+            .tv-card { width: 235px; height: 360px; }
+            .hero-card { width: 220px; height: 290px; }
+            .tv-card h2 { font-size: 18px; }
+            .hero-card h2 { font-size: 17px; }
+            .tv-card p, .hero-card p { font-size: 12px; }
+        }
+
+        /* ================= BIG PARAGRAPH ================= */
+
+        .big-paragraph {
+            background: #f5f5f7;
+            color: #6e6e73;
+            padding: 50px 8%;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .big-paragraph p { max-width: 1000px; margin: 0 auto 14px; }
+
+        @media (max-width: 768px) {
+            .big-paragraph { padding: 30px 18px; }
+        }
+
+        /* ================= SHOP AND LEARN ================= */
+
+        .shop-menu {
+            background: #f5f5f7;
+            padding: 0 20px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+
+        .shop-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 12px;
+            color: #1d1d1f;
+            padding: 16px 0;
+            user-select: none;
+        }
+
+        .shop-title span { font-weight: 600; }
+
+        .shop-arrow { font-size: 12px; color: #6e6e73; transition: transform 0.3s ease; }
+        .shop-title.active .shop-arrow { transform: rotate(180deg); }
+
+        .shop-items { display: none; padding: 5px 0 20px; }
+        .shop-items.show { display: block; }
+
+        .shop-items p { margin: 0; padding: 7px 0; font-size: 12px; color: #424245; }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+
+            <a class="navbar-brand me-lg-2" href="#">
+                <i class="fa-brands fa-apple icon-white" style="font-size:22px;"></i>
+            </a>
+
+            <div class="d-flex gap-3 order-lg-last navbar-icons">
+                <i class="fa-solid fa-magnifying-glass icon-white"></i>
+                <i class="fa-solid fa-bag-shopping icon-white"></i>
+            </div>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+
+                    <!-- ===== STORE ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">Store</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Shop</h6>
+                                        <a href="#">Shop the latest</a>
+                                        <a href="#">Mac</a>
+                                        <a href="#">iPad</a>
+                                        <a href="#">iPhone</a>
+                                        <a href="#">Apple Watch</a>
+                                        <a href="#">Apple Vision Pro</a>
+                                        <a href="#">AirPods</a>
+                                        <a href="#">Accessories</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Quick Links</h6>
+                                        <a href="#">Find a Store</a>
+                                        <a href="#">Order Status</a>
+                                        <a href="#">Apple Upgrade</a>
+                                        <a href="#">Apple Trade In</a>
+                                        <a href="#">Financing</a>
+                                        <a href="#">Personal Setup</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop Special Stores</h6>
+                                        <a href="#">Certified Refurbished</a>
+                                        <a href="#">Education</a>
+                                        <a href="#">Business</a>
+                                        <a href="#">Veterans and Military</a>
+                                        <a href="#">Government</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== MAC ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">Mac</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore Mac</h6>
+                                        <a href="#">Explore All Mac</a>
+                                        <a href="#">MacBook Neo</a>
+                                        <a href="#">MacBook Air</a>
+                                        <a href="#">MacBook Pro</a>
+                                        <a href="#">iMac</a>
+                                        <a href="#">Mac mini</a>
+                                        <a href="#">Mac Studio</a>
+                                        <a href="#">Displays</a>
+                                        <a href="#" style="font-size:15px;">Compare Mac</a>
+                                        <a href="#" style="font-size:15px;">Switch from PC to Mac</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop Mac</h6>
+                                        <a href="#">Shop Mac</a>
+                                        <a href="#">Help Me Choose</a>
+                                        <a href="#">Mac Accessories</a>
+                                        <a href="#">Apple Upgrade</a>
+                                        <a href="#">Apple Trade In</a>
+                                        <a href="#">Financing</a>
+                                        <a href="#">Personal Setup</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>More from Mac</h6>
+                                        <a href="#">Mac Support</a>
+                                        <a href="#">AppleCare</a>
+                                        <a href="#">macOS 27</a>
+                                        <a href="#">Apple Intelligence and Siri</a>
+                                        <a href="#">Apps by Apple</a>
+                                        <a href="#">Apple Creator Studio</a>
+                                        <a href="#">Better With iPhone</a>
+                                        <a href="#">iCloud+</a>
+                                        <a href="#">Mac for Business</a>
+                                        <a href="#">Education</a>
+                                        <a href="#">Apple at Work</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== IPAD ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">iPad</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore iPad</h6>
+                                        <a href="#">Explore All iPad</a>
+                                        <a href="#">iPad Pro</a>
+                                        <a href="#">iPad Air</a>
+                                        <a href="#">iPad mini</a>
+                                        <a href="#">Apple Pencil</a>
+                                        <a href="#">Keyboards</a>
+                                        <a href="#" style="font-size:15px;">Compare iPad</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop iPad</h6>
+                                        <a href="#">Shop iPad</a>
+                                        <a href="#">iPad Accessories</a>
+                                        <a href="#">Apple Upgrade</a>
+                                        <a href="#">Apple Trade In</a>
+                                        <a href="#">Financing</a>
+                                        <a href="#">Personal Setup</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>More from iPad</h6>
+                                        <a href="#">iPad Support</a>
+                                        <a href="#">AppleCare</a>
+                                        <a href="#">iPadOS 27</a>
+                                        <a href="#">Apple Intelligence and Siri</a>
+                                        <a href="#">Apps by Apple</a>
+                                        <a href="#">iCloud+</a>
+                                        <a href="#">iPad for Business</a>
+                                        <a href="#">Education</a>
+                                        <a href="#">Apple at Work</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== IPHONE ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">iPhone</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore iPhone</h6>
+                                        <a href="#">Explore All iPhone</a>
+                                        <a href="#">iPhone Duo</a>
+                                        <a href="#">iPhone 18 Pro</a>
+                                        <a href="#">iPhone Air</a>
+                                        <a href="#">iPhone 17</a>
+                                        <a href="#">iPhone 17e</a>
+                                        <a href="#">iPhone 16</a>
+                                        <a href="#" style="font-size:15px;">Compare iPhone</a>
+                                        <a href="#" style="font-size:15px;">Switch from Android</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop iPhone</h6>
+                                        <a href="#">Shop iPhone</a>
+                                        <a href="#">iPhone Accessories</a>
+                                        <a href="#">Apple Upgrade</a>
+                                        <a href="#">Apple Trade In</a>
+                                        <a href="#">Carrier Deals at Apple</a>
+                                        <a href="#">Financing</a>
+                                        <a href="#">Personal Setup</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>More from iPhone</h6>
+                                        <a href="#">iPhone Support</a>
+                                        <a href="#">AppleCare</a>
+                                        <a href="#">iOS 27</a>
+                                        <a href="#">Apple Intelligence and Siri</a>
+                                        <a href="#">Apps by Apple</a>
+                                        <a href="#">iPhone Privacy</a>
+                                        <a href="#">Better With Mac</a>
+                                        <a href="#">iCloud+</a>
+                                        <a href="#">Wallet, Pay, Card</a>
+                                        <a href="#">Apple at Work</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== WATCH ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">Watch</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore Watch</h6>
+                                        <a href="#">Explore All Apple Watch</a>
+                                        <a href="#">Apple Watch Series 12</a>
+                                        <a href="#">Apple Watch Ultra 4</a>
+                                        <a href="#">Apple Watch SE 3</a>
+                                        <a href="#">Apple Watch Nike</a>
+                                        <a href="#">Apple Watch Hermès</a>
+                                        <a href="#" style="font-size:15px;">Compare Watch</a>
+                                        <a href="#" style="font-size:15px;">Why Apple Watch</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop Watch</h6>
+                                        <a href="#">Shop Apple Watch</a>
+                                        <a href="#">Apple Watch Bands</a>
+                                        <a href="#">Apple Watch Accessories</a>
+                                        <a href="#">Apple Upgrade</a>
+                                        <a href="#">Apple Trade In</a>
+                                        <a href="#">Financing</a>
+                                        <a href="#">Personal Setup</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>More from Watch</h6>
+                                        <a href="#">Apple Watch Support</a>
+                                        <a href="#">AppleCare</a>
+                                        <a href="#">watchOS 27</a>
+                                        <a href="#">Apple Watch for Your Kids</a>
+                                        <a href="#">Apps by Apple</a>
+                                        <a href="#">Apple Fitness+</a>
+                                        <a href="#">Education</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== VISION ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">Vision</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore Vision</h6>
+                                        <a href="#">Explore Apple Vision Pro</a>
+                                        <a href="#" style="font-size:15px;">Tech Specs</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop Vision</h6>
+                                        <a href="#">Shop Apple Vision Pro</a>
+                                        <a href="#">Apple Vision Pro Accessories</a>
+                                        <a href="#">Book a Demo</a>
+                                        <a href="#">Financing</a>
+                                        <a href="#">Personal Setup</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>More from Vision</h6>
+                                        <a href="#">Apple Vision Pro Support</a>
+                                        <a href="#">AppleCare</a>
+                                        <a href="#">visionOS 27</a>
+                                        <a href="#">Apple Vision Pro for Enterprise</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== AIRPODS ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">AirPods</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore AirPods</h6>
+                                        <a href="#">Explore All AirPods</a>
+                                        <a href="#">AirPods 5</a>
+                                        <a href="#">AirPods Pro 3</a>
+                                        <a href="#">AirPods Max 2</a>
+                                        <a href="#" style="font-size:15px;">Compare AirPods</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop AirPods</h6>
+                                        <a href="#">Shop AirPods 5</a>
+                                        <a href="#">Shop AirPods Pro 3</a>
+                                        <a href="#">Shop AirPods Max 2</a>
+                                        <a href="#">AirPods Accessories</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>More from AirPods</h6>
+                                        <a href="#">AirPods Support</a>
+                                        <a href="#">AppleCare</a>
+                                        <a href="#">Hearing Health</a>
+                                        <a href="#">Apple Music</a>
+                                        <a href="#">Apple Fitness+</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== TV & HOME ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">TV &amp; Home</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore TV &amp; Home</h6>
+                                        <a href="#">Explore TV &amp; Home</a>
+                                        <a href="#">Apple TV 4K</a>
+                                        <a href="#">HomePod</a>
+                                        <a href="#">HomePod mini</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop TV &amp; Home</h6>
+                                        <a href="#">Shop Apple TV 4K</a>
+                                        <a href="#">Shop HomePod</a>
+                                        <a href="#">Shop HomePod mini</a>
+                                        <a href="#">Shop Siri Remote</a>
+                                        <a href="#">TV &amp; Home Accessories</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>More from TV &amp; Home</h6>
+                                        <a href="#">Apple TV Support</a>
+                                        <a href="#">HomePod Support</a>
+                                        <a href="#">AppleCare for Apple TV</a>
+                                        <a href="#">AppleCare for HomePod</a>
+                                        <a href="#">Apple TV app</a>
+                                        <a href="#">Apple TV+</a>
+                                        <a href="#">Home app</a>
+                                        <a href="#">Apple Music</a>
+                                        <a href="#">AirPlay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== ENTERTAINMENT ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">Entertainment</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore Entertainment</h6>
+                                        <a href="#">Explore Entertainment</a>
+                                        <a href="#">Apple One</a>
+                                        <a href="#">Apple TV+</a>
+                                        <a href="#">Apple Music</a>
+                                        <a href="#">Apple Arcade</a>
+                                        <a href="#">Apple Fitness+</a>
+                                        <a href="#">Apple News+</a>
+                                        <a href="#">Apple Podcasts</a>
+                                        <a href="#">Apple Books</a>
+                                        <a href="#">App Store</a>
+                                    </div>
+                                    <div class="col-12 col-lg-4 col-block small-links">
+                                        <h6>Support</h6>
+                                        <a href="#">Apple TV+ Support</a>
+                                        <a href="#">Apple Music Support</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== ACCESSORIES ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">Accessories</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Shop Accessories</h6>
+                                        <a href="#">Shop All Accessories</a>
+                                        <a href="#">iPhone</a>
+                                        <a href="#">iPad</a>
+                                        <a href="#">Mac</a>
+                                        <a href="#">Apple Watch</a>
+                                        <a href="#">Apple Vision Pro</a>
+                                        <a href="#">AirPods</a>
+                                        <a href="#">TV &amp; Home</a>
+                                        <a href="#">AirTag</a>
+                                        <a href="#">Beats</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Shop by Category</h6>
+                                        <a href="#">Headphones &amp; Speakers</a>
+                                        <a href="#">Chargers &amp; Adapters</a>
+                                        <a href="#">Smart Home Essentials</a>
+                                        <a href="#">Cases &amp; Protection</a>
+                                        <a href="#">Content Creation</a>
+                                        <a href="#">Gaming</a>
+                                        <a href="#">Hard Drives &amp; Storage</a>
+                                        <a href="#">Mice &amp; Keyboards</a>
+                                        <a href="#">Health &amp; Fitness</a>
+                                        <a href="#">Office Accessories</a>
+                                        <a href="#">Software</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>More to Explore</h6>
+                                        <a href="#">New Arrivals</a>
+                                        <a href="#">Made by Apple</a>
+                                        <a href="#">Accessibility</a>
+                                        <a href="#">Assistive Technologies</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- ===== SUPPORT ===== -->
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#">Support</a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-4 col-block big">
+                                        <h6>Explore Support</h6>
+                                        <a href="#">iPhone</a>
+                                        <a href="#">Mac</a>
+                                        <a href="#">iPad</a>
+                                        <a href="#">Watch</a>
+                                        <a href="#">Apple Vision Pro</a>
+                                        <a href="#">AirPods</a>
+                                        <a href="#">Music</a>
+                                        <a href="#">TV</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Get Help</h6>
+                                        <a href="#">Community</a>
+                                        <a href="#">Check Coverage</a>
+                                        <a href="#">Genius Bar</a>
+                                        <a href="#">Repair</a>
+                                    </div>
+                                    <div class="col-6 col-lg-4 col-block small-links">
+                                        <h6>Helpful Topics</h6>
+                                        <a href="#">Get AppleCare</a>
+                                        <a href="#">Apple Account and Password</a>
+                                        <a href="#">Billing &amp; Subscriptions</a>
+                                        <a href="#">Accessibility</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- ================= IPHONE 18 PRO ================= -->
+
+    <section class="tile bg-black-t">
+        <div class="img-wrapper">
+            <img src="iphone.jpg" alt="iPhone 18 Pro" onerror="this.style.display='none'">
+            <div class="image-content light">
+                <h1>iPhone 18 Pro</h1>
+                <h3>Pro further.</h3>
+                <div class="image-buttons">
+                    <a href="#" class="btn btn-primary rounded-pill">Learn more</a>
+                    <a href="#" class="btn btn-outline-light rounded-pill">Buy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= IPHONE DUO ================= -->
+
+    <section class="tile bg-light-t">
+        <div class="img-wrapper">
+            <img src="pad.jpg" alt="iPhone Duo" onerror="this.style.display='none'">
+            <div class="image-content dark">
+                <h1>iPhone Duo</h1>
+                <h3>Hello, hello.</h3>
+                <p>Pre-order 5:00 AM PT on 10.16<br>Available 10.23</p>
+                <div class="image-buttons">
+                    <a href="#" class="btn btn-primary rounded-pill">Learn more</a>
+                    <a href="#" class="btn btn-outline-primary rounded-pill">View pricing</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= WATCH SERIES 12 ================= -->
+
+    <section class="tile bg-black-t">
+        <div class="img-wrapper">
+            <img src="watch.jpg" alt="Apple Watch Series 12" onerror="this.style.display='none'">
+            <div class="image-content light">
+                <h1><i class="fa-brands fa-apple"></i> WATCH</h1>
+                <h5>SERIES 12</h5>
+                <h4>The most accurate heart rate sensing in a wearable.<sup>1</sup></h4>
+                <div class="image-buttons">
+                    <a href="#" class="btn btn-primary rounded-pill">Learn more</a>
+                    <a href="#" class="btn btn-outline-light rounded-pill">Buy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+
+
+    <!-- ================= WATCH ULTRA 4 ================= -->
+
+    <section class="tile bg-black-t">
+        <div class="img-wrapper">
+            <img src="watch2.jpg" alt="Apple Watch Ultra 4" onerror="this.style.display='none'">
+            <div class="image-content light">
+                <h1>
+                    <i class="fa-brands fa-apple"></i> WATCH
+                    <span >ULTRA 4</span>
+                </h1>
+                <h4>A battery you can't outrun.</h4>
+                <div class="image-buttons">
+                    <a href="#" class="btn btn-primary rounded-pill">Learn more</a>
+                    <a href="#" class="btn btn-outline-light rounded-pill">Buy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= MACBOOK AIR ================= -->
+
+    <section class="tile bg-blue-t">
+        <div class="img-wrapper">
+            <img src="macbook.jpg" alt="MacBook Air" onerror="this.style.display='none'">
+            <div class="image-content dark">
+                <h1><i class="fa-brands fa-apple"></i> MacBook Air</h1>
+                <h4>Now supercharged by M5.</h4>
+                <div class="image-buttons">
+                    <a href="#" class="btn btn-primary rounded-pill">Learn more</a>
+                    <a href="#" class="btn btn-outline-primary rounded-pill">Buy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= IPAD AIR ================= -->
+
+    <section class="tile bg-blue-t">
+        <div class="img-wrapper">
+            <img src="ipad.jpg" alt="iPad Air" onerror="this.style.display='none'">
+            <div class="image-content dark">
+                <h1><i class="fa-brands fa-apple"></i> iPad Air</h1>
+                <h4>Now supercharged by M4.</h4>
+                <div class="image-buttons">
+                    <a href="#" class="btn btn-primary rounded-pill">Learn more</a>
+                    <a href="#" class="btn btn-outline-primary rounded-pill">Buy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= UPGRADE ================= -->
+
+    <section class="tile bg-blue-t">
+        <div class="img-wrapper">
+            <img src="applephone.jpg" alt="Apple Upgrade" onerror="this.style.display='none'">
+            <div class="image-content dark">
+                <h1><i class="fa-brands fa-apple"></i> Upgrade</h1>
+                <h4>Love it. Lease it. Upgrade.<sup>2</sup></h4>
+                <div class="image-buttons">
+                    <a href="#" class="btn btn-primary rounded-pill">Learn more</a>
+                    <a href="#" class="btn btn-outline-primary rounded-pill">Buy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= APPLE CARD ================= -->
+
+    <section class="tile bg-light-t">
+        <div class="img-wrapper">
+            <img src="applecard.jpg" alt="Apple Card" onerror="this.style.display='none'">
+            <div class="image-content dark">
+                <h1><i class="fa-brands fa-apple"></i> Card</h1>
+                <h5>Get up to 3% cash back</h5>
+                <h5>with every purchase.<sup>3</sup></h5>
+                <div class="image-buttons">
+                    <a href="#" class="btn btn-primary rounded-pill">Learn more</a>
+                    <a href="#" class="btn btn-outline-primary rounded-pill">Apply now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================= TV CARDS ================= -->
+
+    <div class="container-fluid bg-black p-0 mt-2">
+
+        <h2 class="section-title">Endless entertainment</h2>
+
+        <div class="apple-slider">
+
+            <div class="tv-card">
+                <img src="card1.jpg" alt="Slow Horses" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>SLOW HORSES</h2>
+                    <p>Thriller · MI5's most unruly spies are back.</p>
+                    <button>Stream now</button>
+                </div>
+            </div>
+
+            <div class="tv-card">
+                <img src="card2.jpg" alt="Knife Edge" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>KNIFE EDGE</h2>
+                    <p>Documentary · New season.</p>
+                    <button>Stream now</button>
+                </div>
+            </div>
+
+            <div class="tv-card">
+                <img src="card3.jpg" alt="Mayday" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>MAYDAY</h2>
+                    <p>Action · A friendship with red flags.</p>
+                    <button>Stream now</button>
+                </div>
+            </div>
+
+            <div class="tv-card">
+                <img src="card4.jpg" alt="Widow's Bay" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>WIDOW'S BAY</h2>
+                    <p>Mystery · Secrets &amp; surprises.</p>
+                    <button>Stream now</button>
+                </div>
+            </div>
+
+            <div class="tv-card">
+                <img src="card5.jpg" alt="Brothers" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>BROTHERS</h2>
+                    <p>Comedy · Friends &amp; family.</p>
+                    <button>Stream now</button>
+                </div>
+            </div>
+
+            <div class="tv-card">
+                <img src="card6.jpg" alt="Ted Lasso" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>TED LASSO</h2>
+                    <p>Comedy · Hit comedy is back.</p>
+                    <button>Stream now</button>
+                </div>
+            </div>
+
+            <div class="tv-card">
+                <img src="card7.jpg" alt="F1" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>F1</h2>
+                    <p>Every Grand Prix live.</p>
+                    <button>F1 on Apple TV</button>
+                </div>
+            </div>
+
+            <div class="tv-card">
+                <img src="card8.jpg" alt="Winter K2" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>WINTER K2</h2>
+                    <p>Documentary · Reach the summit.</p>
+                    <button>Stream now</button>
+                </div>
+            </div>
+
+            <div class="tv-card">
+                <img src="card9.jpg" alt="MLS" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo"><i class="fa-brands fa-apple"></i> tv+</div>
+                    <h2>MLS</h2>
+                    <p>Watch every club, every match live.</p>
+                    <button>MLS on Apple TV</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ================= HERO SLIDER ================= -->
+
+    <div class="hero-section">
+        <div class="hero-slider">
+
+            <div class="hero-card">
+                <img src="card10.jpg" alt="Music" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Music</div>
+                    <h2>Miley &amp; Zane</h2>
+                    <p>The Interview</p>
+                    <button>Listen now</button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="card11.jpg" alt="Arcade" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Arcade</div>
+                    <h2>Hello Kitty</h2>
+                    <p>Adventure</p>
+                    <button>Play now</button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="card12.jpg" alt="Fitness+" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Fitness+</div>
+                    <h2>Meditation</h2>
+                    <p>Guided meditation for every day.</p>
+                    <button>Watch now</button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="card13.jpg" alt="Arcade" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Arcade</div>
+                    <h2>PowerWash</h2>
+                    <p>Relaxing gameplay.</p>
+                    <button>Play now</button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="card14.jpg" alt="Music" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Music</div>
+                    <h2>New Music Daily</h2>
+                    <p>Today's hits.</p>
+                    <button>Listen now</button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="card15.jpg" alt="Fitness+" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Fitness+</div>
+                    <h2>Programs</h2>
+                    <p>Workouts for everyone.</p>
+                    <button>Watch now</button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="card16.jpg" alt="Arcade" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Arcade</div>
+                    <h2>Madden NFL</h2>
+                    <p>Arcade Edition.</p>
+                    <button>Play now</button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="card17.jpg" alt="Music" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Music</div>
+                    <h2>Today's Hits</h2>
+                    <p>Everyone's playing.</p>
+                    <button>Listen now</button>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="card18.jpg" alt="Fitness+" onerror="this.style.display='none'">
+                <div class="overlay">
+                    <div class="logo">Fitness+</div>
+                    <h2>Tea Lasso</h2>
+                    <p>Fun workouts.</p>
+                    <button>Watch now</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ================= LEGAL TEXT ================= -->
+
+    <div class="big-paragraph">
+        <p>
+            1. Based on data from an Apple-conducted study of heart rate accuracy, during July and August 2026,
+            utilizing commercially available best-selling wearables available as of June 2026. For more
+            information, visit apple.com/HRAccuracy.
+        </p>
+        <p>
+            2. Apple Upgrade is a device leasing program available in the U.S. (excluding U.S. territories). Leases
+            are provided by Klarna: subject to eligibility and credit approval, including final approval at checkout.
+            To be eligible, you must be a U.S. resident, at least 18 years old (or the legal age in your state), have
+            an accepted credit or debit card, and have an Apple Account. Additional eligibility criteria apply.
+            Device must be in good condition upon return; damage fees may apply. For iPhone only: In order to
+            lease an iPhone, you must select an eligible carrier (but you cannot use a prepaid carrier plan).
+            Upgrades require entering into a new lease and are subject to eligibility and credit approval.
+            Apple Upgrade is not available on refurbished devices or online at the following special stores:
+            Apple Employee Purchase Plan; participating corporate Employee Purchase Programs; Apple at
+            Work for small businesses or enterprises; Government, Education, or Veterans and Military Purchase
+            programs.
+        </p>
+        <p>
+            3. To access and use all Apple Card features and products available only to Apple Card users, you must add
+            Apple Card to Wallet on an iPhone or iPad that supports and has the latest version of iOS or iPadOS.
+            Apple Card is subject to credit approval, available only for qualifying applicants in the United States, and
+            issued by Goldman Sachs Bank USA, Salt Lake City Branch.
+        </p>
+        <p>
+            Apple Payments Services LLC, a subsidiary of Apple Inc., is a service provider of Goldman Sachs Bank
+            USA for Apple Card and Savings accounts. Neither Apple Inc. nor Apple Payments Services LLC is a bank.
+        </p>
+        <p>
+            All communications from Apple and Goldman Sachs Bank USA about Apple Card (including transactional
+            and marketing communications) and customer service support are available in English. Certain
+            communications about Apple Card can be viewed in another language depending on your device language
+            settings. If you reside in the U.S. Virgin Islands, American Samoa, Guam, Northern Mariana Islands, or U.S.
+            Minor Outlying Islands, please call Goldman Sachs at 877-255-5923 with questions about Apple Card.
+        </p>
+        <p>
+            Learn more about how Apple Card applications are evaluated at support.apple.com/kb/HT209218.
+        </p>
+        <p>
+            A subscription is required for Apple Arcade, Apple Fitness+, Apple Music, and Apple TV+.
+        </p>
+        <p>
+            Features are subject to change. Some features, applications, and services may not be available in all
+            regions or all languages.
+        </p>
+    </div>
+
+    <hr style="margin:0;">
+
+
+    <!-- ================= SHOP AND LEARN ================= -->
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>Shop and Learn</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Store</p><p>Mac</p><p>iPad</p><p>iPhone</p><p>Watch</p><p>Vision</p>
+            <p>AirPods</p><p>TV &amp; Home</p><p>AirTag</p><p>Accessories</p><p>Gift Cards</p>
+        </div>
+    </div>
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>Apple Wallet</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Wallet</p><p>Apple Card</p><p>Apple Pay</p><p>Apple Cash</p>
+        </div>
+    </div>
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>Account</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Manage Your Apple Account</p><p>Apple Store Account</p><p>iCloud.com</p>
+        </div>
+    </div>
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>Entertainment</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Apple One</p><p>Apple TV+</p><p>Apple Music</p><p>Apple Arcade</p>
+            <p>Apple Fitness+</p><p>Apple News+</p><p>Apple Podcasts</p><p>Apple Books</p><p>App Store</p>
+        </div>
+    </div>
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>Apple Store</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Find a Store</p><p>Genius Bar</p><p>Today at Apple</p><p>Apple Camp</p>
+            <p>Apple Store App</p><p>Certified Refurbished</p><p>Apple Trade In</p><p>Order Status</p>
+        </div>
+    </div>
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>For Business</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Apple and Business</p><p>Shop for Business</p>
+        </div>
+    </div>
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>For Education</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Apple and Education</p><p>Shop for K-12</p><p>Shop for College</p>
+        </div>
+    </div>
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>Apple Values</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Accessibility</p><p>Environment</p><p>Privacy</p><p>Supply Chain</p>
+        </div>
+    </div>
+
+    <div class="shop-menu">
+        <div class="shop-title" onclick="toggleShop(this)">
+            <span>About Apple</span>
+            <i class="fa-solid fa-chevron-down shop-arrow"></i>
+        </div>
+        <div class="shop-items">
+            <p>Newsroom</p><p>Leadership</p><p>Careers</p><p>Investors</p><p>Events</p><p>Contact Apple</p>
+        </div>
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <div class="p-3 bg-light" style="font-size:12px; color:#6e6e73;">
+        <p>
+            More ways to shop: Find an Apple Store or other retailer near you. Or call 1-800-MY-APPLE.
+        </p>
+        <hr>
+        <p>
+            Copyright © 2026 Apple Inc. All rights reserved.
+            | Privacy Policy | Terms of Use | Sales and Returns | Legal | Site Map
+        </p>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+        /* ---------- Footer accordion ---------- */
+        function toggleShop(element) {
+            const items = element.nextElementSibling;
+            const isOpen = items.classList.contains("show");
+            items.classList.toggle("show", !isOpen);
+            element.classList.toggle("active", !isOpen);
+        }
+
+        /* ---------- Mega menu: hover on desktop, tap on mobile ---------- */
+        (function () {
+            const items = document.querySelectorAll(".navbar-nav > .nav-item.dropdown");
+            const isDesktop = () => window.matchMedia("(min-width: 992px)").matches;
+
+            function closeAll(except) {
+                items.forEach(function (li) {
+                    if (li !== except) {
+                        li.classList.remove("open");
+                        li.querySelector(".mega-menu").classList.remove("show");
+                    }
+                });
+            }
+
+            items.forEach(function (li) {
+                const link = li.querySelector(".nav-link");
+                const menu = li.querySelector(".mega-menu");
+
+                li.addEventListener("mouseenter", function () {
+                    if (!isDesktop()) return;
+                    closeAll(li);
+                    li.classList.add("open");
+                    menu.classList.add("show");
+                });
+
+                li.addEventListener("mouseleave", function () {
+                    if (!isDesktop()) return;
+                    li.classList.remove("open");
+                    menu.classList.remove("show");
+                });
+
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const willOpen = !menu.classList.contains("show");
+                    closeAll(li);
+                    li.classList.toggle("open", willOpen);
+                    menu.classList.toggle("show", willOpen);
+                });
+            });
+
+            document.addEventListener("click", function (e) {
+                if (!e.target.closest(".navbar")) closeAll();
+            });
+
+            window.addEventListener("resize", function () { closeAll(); });
+        })();
+
+        /* ---------- Horizontal drag scroll ---------- */
+        document.querySelectorAll(".apple-slider, .hero-slider").forEach(function (slider) {
+            let isDown = false, startX, scrollLeft;
+
+            slider.addEventListener("mousedown", function (e) {
+                isDown = true;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener("mouseleave", function () { isDown = false; });
+            slider.addEventListener("mouseup", function () { isDown = false; });
+            slider.addEventListener("mousemove", function (e) {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                slider.scrollLeft = scrollLeft - (x - startX) * 2;
+            });
+        });
+    </script>
+
+</body>
+
+</html>
